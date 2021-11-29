@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 /**
  * Manages keyboard input for the provided screen.
- * 
+ * instance.isKeyDown(int keyCode) 로 해당 키가 눌려있는지 확인. keycode는 256 미만까지만 지원함
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */

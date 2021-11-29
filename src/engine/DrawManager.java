@@ -1,20 +1,16 @@
 package engine;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
+import entity.Entity;
+import entity.Ship;
+import screen.Screen;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-
-import screen.Screen;
-import entity.Entity;
-import entity.Ship;
 
 /**
  * Manages screen drawing.
@@ -47,7 +43,9 @@ public final class DrawManager {
 	/** Big sized font properties. */
 	private static FontMetrics fontBigMetrics;
 
-	/** Sprite types mapped to their images. */
+	/** Sprite types mapped to their images.
+	 * enum SpriteType 에 각 개체들의 Sprite를 매핑하는 map 자료형이다. 이때 Sprite는 2차원 Boolean[][] 이다.
+	 * */
 	private static Map<SpriteType, boolean[][]> spriteMap;
 
 	/** Sprite types. */
@@ -119,7 +117,7 @@ public final class DrawManager {
 
 	/**
 	 * Returns shared instance of DrawManager.
-	 * 
+	 * DrawManger는 프로그램 전체를 통틀어 단 하나뿐이며(한 개의 Instance 만 가짐), 이 Instance가 각 Screen들로부터 요청을 받아서 화면을 그려낸다.
 	 * @return Shared instance of DrawManager.
 	 */
 	protected static DrawManager getInstance() {
@@ -141,7 +139,7 @@ public final class DrawManager {
 	/**
 	 * First part of the drawing process. Initialices buffers, draws the
 	 * background and prepares the images.
-	 * 
+	 * BackGround Image(BufferedImage) 를 만들고, 검은색으로 채운 뒤, BufferedImage 의 variable 들을 Class의 Static 영역에 할당해놓는다.
 	 * @param screen
 	 *            Screen to draw in.
 	 */
@@ -165,7 +163,10 @@ public final class DrawManager {
 
 	/**
 	 * Draws the completed drawing on screen.
-	 * 
+	 * 현재 Frame의 그래픽(우리가 보는 화면)은 graphics 이고, BufferedImage backBuffer의 Graphics 인 backBufferGraphics에
+	 * draw~~어쩌고 method를 사용해서 그린 후, 해당 버퍼의 내용을 graphics.drawImage로 업데이트 한다.
+	 * 참고: drawImage method는 thread 를 생성만 하고, 실제 drawing 작업은 새로 생성된 thread 에서 한다.
+	 * 순차적으로 처리되는 것이 아니기 때문에, thread 의 정보를 받을 observer(마지막 argument인 frame) 가 필요하다.
 	 * @param screen
 	 *            Screen to draw on.
 	 */
@@ -193,7 +194,7 @@ public final class DrawManager {
 			for (int j = 0; j < image[i].length; j++)
 				if (image[i][j])
 					backBufferGraphics.drawRect(positionX + i * 2, positionY
-							+ j * 2, 1, 1);
+							+ j *2, 1, 1);
 	}
 
 	/**
