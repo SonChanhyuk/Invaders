@@ -1,13 +1,13 @@
 package screen;
 
-import java.awt.Insets;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
-
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager;
 import engine.InputManager;
+
+import java.awt.*;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 /**
  * Implements a generic screen.
@@ -75,7 +75,7 @@ public class Screen {
 
 	/**
 	 * Activates the screen.
-	 * 
+	 * Screen instance 의 abstract method update() 를 1프레임에 한번씩 실행한다.
 	 * @return Next screen code.
 	 */
 	public int run() {

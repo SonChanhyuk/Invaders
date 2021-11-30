@@ -1,22 +1,15 @@
 package engine;
 
+import screen.*;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import screen.GameScreen;
-import screen.HighScoreScreen;
-import screen.ScoreScreen;
-import screen.Screen;
-import screen.TitleScreen;
+import java.util.logging.*;
 
 /**
  * Implements core game logic.
- * 
+ * 창 크기, 초당 프레임률, 잔기 수 등등 옵션과
+ * 스테이지 로깅 관리
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */
