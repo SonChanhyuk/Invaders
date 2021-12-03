@@ -17,6 +17,8 @@ public final class InputManager implements KeyListener {
 	private static boolean[] keys;
 	/** Singleton instance of the class. */
 	private static InputManager instance;
+	
+	private static int keycode;
 
 	/**
 	 * Private constructor.
@@ -46,6 +48,10 @@ public final class InputManager implements KeyListener {
 	public boolean isKeyDown(final int keyCode) {
 		return keys[keyCode];
 	}
+	
+	public int getKeyCode() {
+		return keycode;
+	}
 
 	/**
 	 * Changes the state of the key to pressed.
@@ -57,6 +63,7 @@ public final class InputManager implements KeyListener {
 	public void keyPressed(final KeyEvent key) {
 		if (key.getKeyCode() >= 0 && key.getKeyCode() < NUM_KEYS)
 			keys[key.getKeyCode()] = true;
+			keycode = key.getKeyCode();
 	}
 
 	/**
@@ -69,6 +76,7 @@ public final class InputManager implements KeyListener {
 	public void keyReleased(final KeyEvent key) {
 		if (key.getKeyCode() >= 0 && key.getKeyCode() < NUM_KEYS)
 			keys[key.getKeyCode()] = false;
+			keycode = -0;
 	}
 
 	/**

@@ -22,6 +22,8 @@ public class EnemyShip extends Entity {
 	private static final int C_TYPE_POINTS = 30;
 	/** Point value of a bonus enemy. */
 	private static final int BONUS_TYPE_POINTS = 100;
+	/** Point value of a boss enemy. */
+	private static final int BOSS_TYPE_POINTS = 1000;
 
 	/** Cooldown between sprite changes. */
 	private Cooldown animationCooldown;
@@ -29,6 +31,10 @@ public class EnemyShip extends Entity {
 	private boolean isDestroyed;
 	/** Values of the ship, in points, when destroyed. */
 	private int pointValue;
+	/** hp of the ship */
+	private int life;
+	/** is boss. */
+	private boolean isBoss;
 
 	/**
 	 * Constructor, establishes the ship's properties.
@@ -47,6 +53,8 @@ public class EnemyShip extends Entity {
 		this.spriteType = spriteType;
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
+		this.life = 1;
+		this.isBoss = false;
 
 		switch (this.spriteType) {
 		case EnemyShipA1:
@@ -77,6 +85,25 @@ public class EnemyShip extends Entity {
 		this.spriteType = SpriteType.EnemyShipSpecial;
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
+		this.life = 1;
+		this.isBoss = false;
+	}
+
+	/**
+	 * Constructor, establishes the ship's properties for a boss ship
+	 *
+	 * @param life
+	 * 			Set boss ship's HP with life.
+	 */
+	public EnemyShip(int life) {
+		super(20, 100, 36 * 2, 24 * 2, Color.GREEN);
+
+		this.spriteType = SpriteType.BossShip1;
+		this.animationCooldown = Core.getCooldown(500);
+		this.isDestroyed = false;
+		this.pointValue = BOSS_TYPE_POINTS;
+		this.life = life;
+		this.isBoss = true;
 	}
 
 	/**
@@ -127,11 +154,34 @@ public class EnemyShip extends Entity {
 			case EnemyShipC2:
 				this.spriteType = SpriteType.EnemyShipC1;
 				break;
+			case BossShip1:
+				this.spriteType = SpriteType.BossShip2;
+				break;
+			case BossShip2:
+				this.spriteType = SpriteType.BossShip1;
+				break;
 			default:
 				break;
 			}
 		}
 	}
+
+	/**
+	 * Checks if the ship is boss ship.
+	 *
+	 * @return True if the ship is boss ship.
+	 */
+	public boolean getIsBoss() { return this.isBoss; }
+
+	/**
+	 * @return ship's life
+	 */
+	public int getLife() { return this.life; }
+
+	/**
+	 * spend a life
+	 */
+	public void spendLife() { this.life--; }
 
 	/**
 	 * Destroys the ship, causing an explosion.

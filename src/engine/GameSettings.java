@@ -38,6 +38,21 @@ public class GameSettings {
 	}
 
 	/**
+	 * for Boss Stage
+	 *
+	 * @param baseSpeed
+	 *            Speed of the Boss.
+	 * @param shootingFrecuency
+	 *            Frecuency of enemy shootings, +/- 30%.
+	 */
+	public GameSettings(final int baseSpeed, final int shootingFrecuency) {
+		this.formationWidth = 1;
+		this.formationHeight = 1;
+		this.baseSpeed = baseSpeed;
+		this.shootingFrecuency = shootingFrecuency;
+	}
+
+	/**
 	 * @return the formationWidth
 	 */
 	public final int getFormationWidth() {

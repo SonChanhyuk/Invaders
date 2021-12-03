@@ -6,9 +6,9 @@ name: Java CI with Gradle
 # Event Trigger
 on:
   push:
-    branches: [ master ]
+    branches: [ master, gradletest ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, gradletest ]
 
 jobs:
   CI:

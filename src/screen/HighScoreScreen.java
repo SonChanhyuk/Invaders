@@ -1,11 +1,14 @@
 package screen;
 
+import engine.Core;
+import engine.Score;
+import engine.SoundPlayer;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.List;
-
-import engine.Core;
-import engine.Score;
 
 /**
  * Implements the high scores screen, it shows player records.
@@ -32,6 +35,14 @@ public class HighScoreScreen extends Screen {
 		super(width, height, fps);
 
 		this.returnCode = 1;
+		this.ismusic = true;
+		
+		try {
+			sound();
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		try {
 			this.highScores = Core.getFileManager().loadHighScores();
@@ -59,8 +70,15 @@ public class HighScoreScreen extends Screen {
 
 		draw();
 		if (inputManager.isKeyDown(KeyEvent.VK_SPACE)
-				&& this.inputDelay.checkFinished())
+				&& this.inputDelay.checkFinished()) {
+			try {
+				sound();
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			this.isRunning = false;
+		}
 	}
 
 	/**
@@ -73,5 +91,18 @@ public class HighScoreScreen extends Screen {
 		drawManager.drawHighScores(this, this.highScores);
 
 		drawManager.completeDrawing(this);
+	}
+	
+	private void sound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		if(this.ismusic) {
+			music = new SoundPlayer("menues.wav");
+			music.play();
+			logger.info("Start Music");
+		}
+		else if(!this.ismusic) {
+			music.stop();
+			logger.info("End Music");
+		}
+		this.ismusic = false;
 	}
 }
