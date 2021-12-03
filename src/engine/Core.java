@@ -120,6 +120,7 @@ public final class Core {
 					// Main menu.
 					currentScreen = new TitleScreen(width, height, FPS);
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+
 							+ " title screen at " + FPS + " fps.");
 					returnCode = frame.setScreen(currentScreen);
 					LOGGER.info("Closing title screen.");
@@ -237,6 +238,8 @@ public final class Core {
 	public static FileManager getFileManager() {
 		return FileManager.getInstance();
 	}
+
+
 
 	/**
 	 * Controls creation of new cooldowns.

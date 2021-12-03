@@ -4,6 +4,7 @@ import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager;
 import engine.InputManager;
+import engine.SoundPlayer;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -41,9 +42,14 @@ public class Screen {
 
 	/** If the screen is running. */
 	protected boolean isRunning;
+	
+	protected boolean ismusic;
+	
 	/** What kind of screen goes next. */
 	protected int returnCode;
 	
+
+	protected SoundPlayer music;
 	public static int key_R = KeyEvent.VK_RIGHT;
 	public static int key_L = KeyEvent.VK_LEFT;
 	public static int key_Shoot = KeyEvent.VK_SPACE;
@@ -86,7 +92,7 @@ public class Screen {
 	 */
 	public int run() {
 		this.isRunning = true;
-
+		this.ismusic = false;
 		while (this.isRunning) {
 			long time = System.currentTimeMillis();
 
