@@ -44,7 +44,7 @@ class EnemyShipTest {
 
     @Test
     void destroyFail() {
-        assertFalse(enemyShipA.isDestroyed());
+        assertTrue(enemyShipA.isDestroyed());
     }
 
 }
