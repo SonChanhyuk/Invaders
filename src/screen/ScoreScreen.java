@@ -61,7 +61,7 @@ public class ScoreScreen extends Screen {
 	public ScoreScreen(final int width, final int height, final int fps,
 			final GameState gameState) {
 		super(width, height, fps);
-
+		
 		this.score = gameState.getScore();
 		this.livesRemaining = gameState.getLivesRemaining();
 		this.bulletsShot = gameState.getBulletsShot();

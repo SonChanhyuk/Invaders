@@ -39,7 +39,7 @@ public class Screen {
 	protected Cooldown inputDelay;
 
 	/** If the screen is running. */
-	protected boolean isRunning;
+	public boolean isRunning;
 	/** What kind of screen goes next. */
 	protected int returnCode;
 

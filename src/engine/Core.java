@@ -8,8 +8,10 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import screen.GameOverScreen;
 import screen.GameScreen;
 import screen.HighScoreScreen;
+import screen.PauseScreen;
 import screen.ScoreScreen;
 import screen.Screen;
 import screen.TitleScreen;
@@ -71,6 +73,9 @@ public final class Core {
 	private static Handler fileHandler;
 	/** Logger handler for printing to console. */
 	private static ConsoleHandler consoleHandler;
+	private static Cooldown inputDelay;
+	
+	private static GameOverScreen gameover;
 
 
 	/**
@@ -153,7 +158,11 @@ public final class Core {
 
 				} while (gameState.getLivesRemaining() > 0
 						&& gameState.getLevel() <= NUM_LEVELS);
-
+				
+				currentScreen = new GameOverScreen(width, height, FPS);
+				returnCode = frame.setScreen(currentScreen);
+				LOGGER.info("Closing Game Over screen.");
+				
 				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 						+ " score screen at " + FPS + " fps, with a score of "
 						+ gameState.getScore() + ", "
