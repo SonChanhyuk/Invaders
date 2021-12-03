@@ -590,6 +590,19 @@ public final class DrawManager {
 					+ fontBigMetrics.getHeight() / 3);
 	}
 	
+
+	public void drawGameOver(final Screen screen) {
+		int rectWidth = screen.getWidth();
+		int rectHeight = screen.getHeight() / 6;
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
+				rectWidth, rectHeight);
+		backBufferGraphics.setColor(Color.GREEN);
+		
+		drawCenteredBigString(screen, "Game Over!", screen.getHeight() / 2
+					+ fontBigMetrics.getHeight() / 3);
+}
+
 	public void drawSetting(final Screen screen) {
 		String settingString = "Setting";
 		String instructionString = "Select funcion";

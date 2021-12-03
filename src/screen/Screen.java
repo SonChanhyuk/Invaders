@@ -41,6 +41,7 @@ public class Screen {
 	protected Cooldown inputDelay;
 
 	/** If the screen is running. */
+
 	protected boolean isRunning;
 	
 	protected boolean ismusic;
