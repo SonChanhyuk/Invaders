@@ -64,10 +64,14 @@ public class EnemyShip extends Entity {
 		case EnemyShipB1:
 		case EnemyShipB2:
 			this.pointValue = B_TYPE_POINTS;
+			this.life = 2;
+			setColor(Color.ORANGE);
 			break;
 		case EnemyShipC1:
 		case EnemyShipC2:
 			this.pointValue = C_TYPE_POINTS;
+			this.life = 3;
+			setColor(Color.RED);
 			break;
 		default:
 			this.pointValue = 0;
