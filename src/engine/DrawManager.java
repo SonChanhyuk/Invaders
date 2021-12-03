@@ -341,7 +341,7 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, settingString.getHeight() / 3
+		drawCenteredRegularString(screen, settingString, screen.getHeight() / 3
 				* 2 + fontRegularMetrics.getHeight() * 4);
 		if (option == 5)
 			backBufferGraphics.setColor(Color.GREEN);

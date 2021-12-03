@@ -147,6 +147,7 @@ public final class Core {
 								gameState.getScore(),
 								gameState.getLivesRemaining(),
 								gameState.getBulletsShot(),
+								gameState.getBulletsHit(),
 								gameState.getShipsDestroyed());
 
 					} while (gameState.getLivesRemaining() > 0
