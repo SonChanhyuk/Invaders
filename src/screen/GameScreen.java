@@ -221,8 +221,15 @@ public class GameScreen extends Screen {
 			this.screenFinishedCooldown.reset();
 		}
 
-		if (this.levelFinished && this.screenFinishedCooldown.checkFinished())
+		if (this.levelFinished && this.screenFinishedCooldown.checkFinished()) {
+			try {
+				sound();
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			this.isRunning = false;
+		}
 	}
 
 	/**
