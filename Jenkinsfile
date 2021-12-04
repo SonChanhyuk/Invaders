@@ -15,9 +15,7 @@ node {
         echo 'process - deploy with docker'
     }
 
-    post {
-        always {
-            emailext body: 'successfully build', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins Alert'
-        }
+    stage ('alert') {
+        emailext body: 'successfully build', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins Alert'
     }
 }
