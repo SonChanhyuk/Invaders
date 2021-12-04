@@ -70,7 +70,7 @@ public class SettingScreen extends Screen {
 				
 		}
 	}
-	/** next selection(아랫 방향)
+	/** next selection(�븘�옯 諛⑺뼢)
 	 * */
 	private void nextFunction() {
 		if (this.functionCode == Exit)
@@ -79,7 +79,7 @@ public class SettingScreen extends Screen {
 			this.functionCode++;
 	}
 
-	/** previous selection(윗 방향)
+	/** previous selection(�쐵 諛⑺뼢)
 	 * */
 	private void previousFunction() {
 		if (this.functionCode == RightKey)
@@ -111,7 +111,7 @@ public class SettingScreen extends Screen {
 			} else if (this.functionCode == ShootKey) {
 				if (userInput != 0) {
 					key_Shoot = userInput;
-					this.logger.info("Shoot Key has been changed to " + key_L);
+					this.logger.info("Shoot Key has been changed to " + key_Shoot);
 					this.functionCode2 = false;
 					this.selectionCooldown.reset();
 				}

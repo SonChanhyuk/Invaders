@@ -157,9 +157,9 @@ public final class Core {
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel() <= NUM_LEVELS);
 
-          currentScreen = new GameOverScreen(width, height, FPS);
-          returnCode = frame.setScreen(currentScreen);
-          LOGGER.info("Closing Game Over screen.");
+					currentScreen = new GameOverScreen(width, height, FPS);
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing Game Over screen.");
           
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " score screen at " + FPS + " fps, with a score of "
@@ -186,23 +186,23 @@ public final class Core {
 					LOGGER.info("Closing high score screen.");
 					break;
           
-          case 5:
-          currentScreen = new ManualScreen(width, height, FPS);
-          LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-              + " manual screen at " + FPS + " fps.");
-          returnCode = frame.setScreen(currentScreen);
-          LOGGER.info("Closing manual screen");
-          break;
+				case 5:
+					currentScreen = new ManualScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " manual screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing manual screen");
+					break;
 				default:
 					break;
-			}
-
-		} while (returnCode != 0);
-		currentScreen.key_R = KeyEvent.VK_RIGHT;
-		currentScreen.key_L = KeyEvent.VK_LEFT;
-		fileHandler.flush();
-		fileHandler.close();
-		System.exit(0);
+				}
+	
+			} while (returnCode != 0);
+			currentScreen.key_R = KeyEvent.VK_RIGHT;
+			currentScreen.key_L = KeyEvent.VK_LEFT;
+			fileHandler.flush();
+			fileHandler.close();
+			System.exit(0);
 	}
 
 	/**
