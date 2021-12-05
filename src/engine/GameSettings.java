@@ -38,7 +38,7 @@ public class GameSettings {
 	}
 
 	/**
-	 * for Boss Stage
+	 * Game setting for Boss Stage
 	 *
 	 * @param baseSpeed
 	 *            Speed of the Boss.

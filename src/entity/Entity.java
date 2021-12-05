@@ -59,6 +59,9 @@ public class Entity {
 
 	/**
 	 * Setter for the color of the entity.
+	 *
+	 * @param color
+	 * 			Entity's graphics color.
 	 */
 	public void setColor(Color color) {
 		this.color = color;

@@ -69,8 +69,9 @@ public final class Core {
 	private static Handler fileHandler;
 	/** Logger handler for printing to console. */
 	private static ConsoleHandler consoleHandler;
+	/** Cool down input delay */
 	private static Cooldown inputDelay;
-	
+	/** Screen for Game over. */
 	private static GameOverScreen gameover;
 
 

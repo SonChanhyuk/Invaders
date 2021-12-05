@@ -39,21 +39,22 @@ public class Screen {
 	protected Insets insets;
 	/** Time until the screen accepts user input. */
 	protected Cooldown inputDelay;
-
 	/** If the screen is running. */
-
 	protected boolean isRunning;
-	
-	protected boolean ismusic;
+	/** If the screen has music. */
+	protected boolean isMusic;
 	
 	/** What kind of screen goes next. */
 	protected int returnCode;
-	
-
+	/** Sound player in Screen. */
 	protected SoundPlayer music;
+	/** Move right key */
 	public static int key_R = KeyEvent.VK_RIGHT;
+	/** Move left key */
 	public static int key_L = KeyEvent.VK_LEFT;
+	/** Shoot bullet key */
 	public static int key_Shoot = KeyEvent.VK_SPACE;
+	/** Function code */
 	protected int functionCode;
 
 	/**
@@ -93,7 +94,7 @@ public class Screen {
 	 */
 	public int run() {
 		this.isRunning = true;
-		this.ismusic = false;
+		this.isMusic = false;
 		while (this.isRunning) {
 			long time = System.currentTimeMillis();
 

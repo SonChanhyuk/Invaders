@@ -39,7 +39,7 @@ public class TitleScreen extends Screen {
 
 		// Defaults to play.
 		this.returnCode = 2;
-		this.ismusic = true;
+		this.isMusic = true;
 		try {
 			sound();
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
@@ -130,15 +130,15 @@ public class TitleScreen extends Screen {
 	}
 	
 	private void sound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-		if(this.ismusic) {
+		if(this.isMusic) {
 			music = new SoundPlayer("menues.wav");
 			music.play();
 			logger.info("Start Music");
 		}
-		else if(!this.ismusic) {
+		else if(!this.isMusic) {
 			music.stop();
 			logger.info("End Music");
 		}
-		this.ismusic = false;
+		this.isMusic = false;
 	}
 }

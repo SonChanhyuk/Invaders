@@ -35,7 +35,7 @@ public class HighScoreScreen extends Screen {
 		super(width, height, fps);
 
 		this.returnCode = 1;
-		this.ismusic = true;
+		this.isMusic = true;
 		
 		try {
 			sound();
@@ -94,15 +94,15 @@ public class HighScoreScreen extends Screen {
 	}
 	
 	private void sound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-		if(this.ismusic) {
+		if(this.isMusic) {
 			music = new SoundPlayer("menues.wav");
 			music.play();
 			logger.info("Start Music");
 		}
-		else if(!this.ismusic) {
+		else if(!this.isMusic) {
 			music.stop();
 			logger.info("End Music");
 		}
-		this.ismusic = false;
+		this.isMusic = false;
 	}
 }

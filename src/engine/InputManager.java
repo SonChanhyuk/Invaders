@@ -13,7 +13,7 @@ public final class InputManager implements KeyListener {
 
 	/** Number of recognised keys. */
 	private static final int NUM_KEYS = 256;
-	/** Array with the jeys marked as pressed or not. */
+	/** Array with the keys marked as pressed or not. */
 	private static boolean[] keys;
 	/** Singleton instance of the class. */
 	private static InputManager instance;
@@ -48,7 +48,10 @@ public final class InputManager implements KeyListener {
 	public boolean isKeyDown(final int keyCode) {
 		return keys[keyCode];
 	}
-	
+
+	/**
+	 * @return the key code.
+	 */
 	public int getKeyCode() {
 		return keycode;
 	}

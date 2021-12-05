@@ -32,6 +32,8 @@ public class GameState {
 	 *            Lives currently remaining.
 	 * @param bulletsShot
 	 *            Bullets shot until now.
+	 * @param bulletsHit
+	 * 			  Bullets hit until now.
 	 * @param shipsDestroyed
 	 *            Ships destroyed until now.
 	 */
@@ -74,7 +76,9 @@ public class GameState {
 		return bulletsShot;
 	}
 
-	/** Returns bullestHit**/
+	/**
+	 * @return the bulletsHit
+	 */
 	public final int getBulletsHit() { return bulletsHit; }
 
 	/**

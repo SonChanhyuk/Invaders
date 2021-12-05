@@ -5,6 +5,9 @@ import engine.Cooldown;
 import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Implements the game over screen.
+ */
 public class GameOverScreen extends Screen{
     
     private long gameStartTime;

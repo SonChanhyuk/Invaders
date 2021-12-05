@@ -136,7 +136,10 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		}
 	}
 
-	public void generalStage(){
+	/**
+	 * Ship formation for general stage.
+	 */
+	private void generalStage(){
 		this.logger.info("Initializing " + nShipsWide + "x" + nShipsHigh
 				+ " ship formation in (" + positionX + "," + positionY + ")");
 
@@ -174,7 +177,10 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.shooters.add(column.get(column.size() - 1));
 	}
 
-	public void bossStage(){
+	/**
+	 * Ship formation for boss stage.
+	 */
+	private void bossStage(){
 		this.logger.info("Initializing Boss stage"
 				+ " ship formation in (" + positionX + "," + positionY + ")");
 

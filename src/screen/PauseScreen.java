@@ -5,6 +5,9 @@ import engine.Cooldown;
 import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Implements the pause screen.
+ */
 public class PauseScreen extends Screen{
     /** time that the game pause was started */
     private long startTime;
@@ -60,6 +63,9 @@ public class PauseScreen extends Screen{
 
     /**
      * Check the ESC key was pressed and Initialize PauseScreen
+     *
+     * @param countdown
+     *          Check if it is doing countdown.
      */
     public void checkPause(boolean countdown) {
         //esc key listener
@@ -85,11 +91,18 @@ public class PauseScreen extends Screen{
     }
 
     /**
-     * Set start time when game is paused.
+     * set start time when screen is paused.
+     *
+     * @param startTime
+     *          start time that screen is paused.
      */
     public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
+
+    /**
+     * apply paused time to cool down class.
+     */
     public void applyPauseTime(){
         Cooldown.addPauseMilli(pauseTime);
     }

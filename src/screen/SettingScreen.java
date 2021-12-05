@@ -5,6 +5,9 @@ import engine.Core;
 
 import java.awt.event.KeyEvent;
 
+/**
+ * Implements the setting screen.
+ */
 public class SettingScreen extends Screen {
 	
 	private static final int SELECTION_TIME = 200;
@@ -20,6 +23,16 @@ public class SettingScreen extends Screen {
 	
 	private Cooldown selectionCooldown;
 
+	/**
+	 * Constructor, establishes the properties of the screen.
+	 *
+	 * @param width
+	 *            Screen width.
+	 * @param height
+	 *            Screen height.
+	 * @param fps
+	 *            Frames per second, frame rate at which the game is run.
+	 */
 	public SettingScreen(final int width, final int height, final int fps) {
 		super(width, height, fps);
 		
@@ -30,19 +43,30 @@ public class SettingScreen extends Screen {
 		this.functionCode2 = false;
 	}
 
+	/**
+	 * Starts the action.
+	 *
+	 * @return Next screen code.
+	 */
 	public final int run() {
 		super.run();
 		
 		return this.returnCode;
 	}
-	
+
+	/**
+	 * Draws the elements associated with the screen.
+	 */
 	private void draw() {
 		drawManager.initDrawing(this);
 		drawManager.drawSetting(this);
 		drawManager.drawSelection(this, this.functionCode, this.functionCode2);
 		drawManager.completeDrawing(this);
 	}
-	
+
+	/**
+	 * Updates the elements on screen and checks for events.
+	 */
 	protected final void update() {
 		super.update();
 		
@@ -70,8 +94,10 @@ public class SettingScreen extends Screen {
 				
 		}
 	}
-	/** next selection(아랫 방향)
-	 * */
+
+	/**
+	 * next selection(Down)
+	 */
 	private void nextFunction() {
 		if (this.functionCode == Exit)
 			this.functionCode = ShootKey;
@@ -79,15 +105,22 @@ public class SettingScreen extends Screen {
 			this.functionCode++;
 	}
 
-	/** previous selection(윗 방향)
-	 * */
+	/**
+	 * previous selection(Up)
+	 */
 	private void previousFunction() {
 		if (this.functionCode == RightKey)
 			this.functionCode = Exit;
 		else
 			this.functionCode--;
 	}
-	
+
+	/**
+	 * Switch the selected key to user input
+	 *
+	 * @param userInput
+	 * 			Key set by User.
+	 */
 	private void SwitchingKey(int userInput) {
 		if (this.functionCode2 == false) {
 			this.functionCode2 = true;
@@ -111,7 +144,7 @@ public class SettingScreen extends Screen {
 			} else if (this.functionCode == ShootKey) {
 				if (userInput != 0) {
 					key_Shoot = userInput;
-					this.logger.info("Shoot Key has been changed to " + key_L);
+					this.logger.info("Shoot Key has been changed to " + key_Shoot);
 					this.functionCode2 = false;
 					this.selectionCooldown.reset();
 				}

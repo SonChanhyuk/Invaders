@@ -6,7 +6,6 @@ import entity.*;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -93,7 +92,7 @@ public class GameScreen extends Screen {
 		super(width, height, fps);
 
 		this.returnCode = 1;
-		this.ismusic = true;
+		this.isMusic = true;
 
 		try {
 			sound();
@@ -366,15 +365,15 @@ public class GameScreen extends Screen {
 				this.bulletsShot, this.bulletsHit, this.shipsDestroyed);
 	}
 	private void sound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-		if(this.ismusic) {
+		if(this.isMusic) {
 			music = new SoundPlayer("inGame.wav");
 			music.play();
 			logger.info("Start Music");
 		}
-		else if(!this.ismusic) {
+		else if(!this.isMusic) {
 			music.stop();
 			logger.info("End Music");
 		}
-		this.ismusic = false;
+		this.isMusic = false;
 	}
 }

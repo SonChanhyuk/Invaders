@@ -178,12 +178,14 @@ public class EnemyShip extends Entity {
 	public boolean getIsBoss() { return this.isBoss; }
 
 	/**
-	 * @return ship's life
+	 * getter of the life of the ship.
+	 *
+	 * @return Life of the ship.
 	 */
 	public int getLife() { return this.life; }
 
 	/**
-	 * spend a life
+	 * spend a life.
 	 */
 	public void spendLife() { this.life--; }
 

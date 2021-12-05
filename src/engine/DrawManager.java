@@ -589,8 +589,13 @@ public final class DrawManager {
 			drawCenteredBigString(screen, "GO!", screen.getHeight() / 2
 					+ fontBigMetrics.getHeight() / 3);
 	}
-	
 
+	/**
+	 * Draw a game over screen.
+	 *
+	 * @param screen
+	 * 			Screen to draw.
+	 */
 	public void drawGameOver(final Screen screen) {
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
@@ -601,11 +606,17 @@ public final class DrawManager {
 		
 		drawCenteredBigString(screen, "Game Over!", screen.getHeight() / 2
 					+ fontBigMetrics.getHeight() / 3);
-}
+	}
 
+	/**
+	 * Draw a setting screen.
+	 *
+	 * @param screen
+	 * 			Screen to draw.
+	 */
 	public void drawSetting(final Screen screen) {
 		String settingString = "Setting";
-		String instructionString = "Select funcion";
+		String instructionString = "Select function";
 		
 		backBufferGraphics.setColor(Color.GREEN);
 		drawCenteredBigString(screen, settingString, screen.getHeight() / 8);
@@ -615,6 +626,16 @@ public final class DrawManager {
 				screen.getHeight() / 5);
 	}
 
+	/**
+	 * Draw selections in the setting Screen.
+	 *
+	 * @param screen
+	 * 			Screen to draw.
+	 * @param currentSelection
+	 * 			Currently selected option.
+	 * @param isKeyMode
+	 *			Check if it is receiving a key.
+	 */
 	public void drawSelection(final Screen screen,  int currentSelection, boolean isKeyMode) {
 		String switchingKey = "Switching Key";
 		String rightString = "Move Right(current key:"+ KeyEvent.getKeyText(Screen.key_R)+")";
@@ -662,9 +683,11 @@ public final class DrawManager {
 				screen.getHeight()/ 4 + fontRegularMetrics.getHeight() * 10);
   }
 
-	/*
-	Draws a manual screen title.
-	Parmas : screen - screen to draw
+	/**
+	 * Draws a manual screen title.
+	 *
+	 * @param screen
+	 * 			Screen to draw.
 	 */
 	public void drawManualTitle(final Screen screen){
 		String highScoreString = "Manual";
@@ -678,9 +701,11 @@ public final class DrawManager {
 				screen.getHeight() / 5);
 	}
 
-	/*
-	Draws a manual screen title.
-	Parmas : screen - screen to draw
+	/**
+	 * Draws a manual screen title.
+	 *
+	 * @param screen
+	 * 			Screen to draw.
 	 */
 	public void drawManual(final Screen screen){
 		String manualString = "manual string";
