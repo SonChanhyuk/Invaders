@@ -16,6 +16,6 @@ node {
     }
 
     stage ('alert') {
-        emailext body: 'successfully build', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins Alert'
+        emailext body: 'successfully build', to: 'changsun19991212@gmail.com', subject: 'Jenkins Alert'
     }
 }
