@@ -639,10 +639,10 @@ public final class DrawManager {
 	public void drawSelection(final Screen screen,  int currentSelection, boolean isKeyMode) {
 		String switchingKey = "Switching Key";
 		String rightString = "Move Right(current key:"+ KeyEvent.getKeyText(Screen.key_R)+")";
-		String ReadyToAccept = "Press Key you want change to";
+		String readyToAccept = "Press Key you want change to";
 		String leftString = "Move Left(current key:"+ KeyEvent.getKeyText(Screen.key_L)+")";
 		String shootString = "Fire Weapon(current key:"+ KeyEvent.getKeyText(Screen.key_Shoot)+")";
-		String ExitString = "Exit";
+		String exitString = "Exit";
 
 		backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, switchingKey, screen.getHeight()
@@ -650,7 +650,7 @@ public final class DrawManager {
 
 		if (currentSelection == 1) {
 			backBufferGraphics.setColor(Color.GREEN);
-			if (isKeyMode == true) rightString = ReadyToAccept;
+			if (isKeyMode) rightString = readyToAccept;
 		}
 		else
 			backBufferGraphics.setColor(Color.WHITE);
@@ -659,7 +659,7 @@ public final class DrawManager {
 
 		if (currentSelection == 2) {
 			backBufferGraphics.setColor(Color.GREEN);
-			if (isKeyMode == true) leftString = ReadyToAccept;
+			if (isKeyMode) leftString = readyToAccept;
 		}
 		else
 			backBufferGraphics.setColor(Color.WHITE);
@@ -668,7 +668,7 @@ public final class DrawManager {
 
 		if (currentSelection == 3) {
 			backBufferGraphics.setColor(Color.GREEN);
-			if (isKeyMode == true) shootString = ReadyToAccept;
+			if (isKeyMode) shootString = readyToAccept;
 		}
 		else
 			backBufferGraphics.setColor(Color.WHITE);
@@ -679,7 +679,7 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, ExitString,
+		drawCenteredRegularString(screen, exitString,
 				screen.getHeight()/ 4 + fontRegularMetrics.getHeight() * 10);
   }
 

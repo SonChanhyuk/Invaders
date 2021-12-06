@@ -14,6 +14,8 @@ import engine.DrawManager;
 import engine.DrawManager.SpriteType;
 import engine.GameSettings;
 
+import static java.lang.Math.random;
+
 /**
  * Groups enemy ships into a formation that moves together.
  * 
@@ -372,7 +374,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 */
 	public final void shoot(final Set<Bullet> bullets) {
 		// For now, only ships in the bottom row are able to shoot.
-		int index = (int) (Math.random() * this.shooters.size());
+		int index = (int) (random() * this.shooters.size());
 		EnemyShip shooter = this.shooters.get(index);
 
 		if (this.shootingCooldown.checkFinished()) {
@@ -382,7 +384,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
 			}
 			else {
-				bullets.add(BulletPool.getBullet((int)(Math.random() * screen.getWidth()),
+				bullets.add(BulletPool.getBullet((int)(random() * screen.getWidth()),
 						shooter.getPositionY() + shooter.height, BULLET_SPEED));
 			}
 		}

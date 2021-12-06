@@ -199,8 +199,8 @@ public final class Core {
 			}
 
 		} while (returnCode != 0);
-		currentScreen.key_R = KeyEvent.VK_RIGHT;
-		currentScreen.key_L = KeyEvent.VK_LEFT;
+		Screen.key_R = KeyEvent.VK_RIGHT;
+		Screen.key_L = KeyEvent.VK_LEFT;
 		fileHandler.flush();
 		fileHandler.close();
 		System.exit(0);

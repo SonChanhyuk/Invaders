@@ -163,46 +163,8 @@ public class GameScreen extends Screen {
 			pauseScreen.update();
 		}
 		else if (this.inputDelay.checkFinished() && !this.levelFinished) {
-
-			if (!this.ship.isDestroyed()) {
-				boolean moveRight = inputManager.isKeyDown(key_R);
-				boolean moveLeft = inputManager.isKeyDown(key_L);
-
-				boolean isRightBorder = this.ship.getPositionX()
-						+ this.ship.getWidth() + this.ship.getSpeed() > this.width - 1;
-				boolean isLeftBorder = this.ship.getPositionX()
-						- this.ship.getSpeed() < 1;
-
-				if (moveRight && !isRightBorder) {
-					this.ship.moveRight();
-				}
-				if (moveLeft && !isLeftBorder) {
-					this.ship.moveLeft();
-				}
-				if (inputManager.isKeyDown(key_Shoot))
-					if (this.ship.shoot(this.bullets))
-						this.bulletsShot++;
-			}
-
-			if (this.enemyShipSpecial != null) {
-				if (!this.enemyShipSpecial.isDestroyed())
-					this.enemyShipSpecial.move(2, 0);
-				else if (this.enemyShipSpecialExplosionCooldown.checkFinished())
-					this.enemyShipSpecial = null;
-
-			}
-			if (this.enemyShipSpecial == null
-					&& this.enemyShipSpecialCooldown.checkFinished()) {
-				this.enemyShipSpecial = new EnemyShip();
-				this.enemyShipSpecialCooldown.reset();
-				this.logger.info("A special ship appears");
-			}
-			if (this.enemyShipSpecial != null
-					&& this.enemyShipSpecial.getPositionX() > this.width) {
-				this.enemyShipSpecial = null;
-				this.logger.info("The special ship has escaped");
-			}
-
+			shipUpdate();
+			specialShipUpdate();
 			this.ship.update();
 			this.enemyShipFormation.update();
 			this.enemyShipFormation.shoot(this.bullets);
@@ -222,6 +184,49 @@ public class GameScreen extends Screen {
 
 		if (this.levelFinished && this.screenFinishedCooldown.checkFinished())
 			this.isRunning = false;
+	}
+
+	private void shipUpdate(){
+		if (!this.ship.isDestroyed()) {
+			boolean moveRight = inputManager.isKeyDown(key_R);
+			boolean moveLeft = inputManager.isKeyDown(key_L);
+
+			boolean isRightBorder = this.ship.getPositionX()
+					+ this.ship.getWidth() + this.ship.getSpeed() > this.width - 1;
+			boolean isLeftBorder = this.ship.getPositionX()
+					- this.ship.getSpeed() < 1;
+
+			if (moveRight && !isRightBorder) {
+				this.ship.moveRight();
+			}
+			if (moveLeft && !isLeftBorder) {
+				this.ship.moveLeft();
+			}
+			if (inputManager.isKeyDown(key_Shoot) && this.ship.shoot(this.bullets)) {
+				this.bulletsShot++;
+			}
+		}
+	}
+
+	private void specialShipUpdate() {
+		if (this.enemyShipSpecial != null) {
+			if (!this.enemyShipSpecial.isDestroyed())
+				this.enemyShipSpecial.move(2, 0);
+			else if (this.enemyShipSpecialExplosionCooldown.checkFinished())
+				this.enemyShipSpecial = null;
+
+		}
+		if (this.enemyShipSpecial == null
+				&& this.enemyShipSpecialCooldown.checkFinished()) {
+			this.enemyShipSpecial = new EnemyShip();
+			this.enemyShipSpecialCooldown.reset();
+			this.logger.info("A special ship appears");
+		}
+		if (this.enemyShipSpecial != null
+				&& this.enemyShipSpecial.getPositionX() > this.width) {
+			this.enemyShipSpecial = null;
+			this.logger.info("The special ship has escaped");
+		}
 	}
 
 	/**
@@ -283,7 +288,7 @@ public class GameScreen extends Screen {
 	 * Manages collisions between bullets and ships.
 	 */
 	private void manageCollisions() {
-		Set<Bullet> recyclable = new HashSet<Bullet>();
+		Set<Bullet> recyclable = new HashSet<>();
 		for (Bullet bullet : this.bullets)
 			if (bullet.getSpeed() > 0) {
 				if (checkCollision(bullet, this.ship) && !this.levelFinished) {
@@ -297,37 +302,45 @@ public class GameScreen extends Screen {
 				}
 			} else {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
-					if (enemyShip.getLife() <= 1
-							&& checkCollision(bullet, enemyShip)) {
-						// boss log
-						if (enemyShip.getIsBoss()) {
-							this.logger.info("Boss destroyed!");
-						}
-						this.score += enemyShip.getPointValue();
-						this.shipsDestroyed++;
-						this.bulletsHit++;
-						this.enemyShipFormation.destroy(enemyShip);
-						recyclable.add(bullet);
-					}
-					else if (enemyShip.getLife() > 1
-							&& checkCollision(bullet, enemyShip)) {
-						enemyShip.spendLife();
-						this.bulletsHit++;
-						recyclable.add(bullet);
-					}
-				if (this.enemyShipSpecial != null
-						&& !this.enemyShipSpecial.isDestroyed()
-						&& checkCollision(bullet, this.enemyShipSpecial)) {
-					this.score += this.enemyShipSpecial.getPointValue();
-					this.shipsDestroyed++;
-					this.bulletsHit++;
-					this.enemyShipSpecial.destroy();
-					this.enemyShipSpecialExplosionCooldown.reset();
-					recyclable.add(bullet);
-				}
+					enemyShipCollision(recyclable,bullet,enemyShip);
+				specialShipCollision(recyclable,bullet);
 			}
 		this.bullets.removeAll(recyclable);
 		BulletPool.recycle(recyclable);
+	}
+
+	private void enemyShipCollision(Set<Bullet> recyclable, Bullet bullet, EnemyShip enemyShip){
+		if (enemyShip.getLife() <= 1
+				&& checkCollision(bullet, enemyShip)) {
+			// boss log
+			if (enemyShip.getIsBoss()) {
+				this.logger.info("Boss destroyed!");
+			}
+			this.score += enemyShip.getPointValue();
+			this.shipsDestroyed++;
+			this.bulletsHit++;
+			this.enemyShipFormation.destroy(enemyShip);
+			recyclable.add(bullet);
+		}
+		else if (enemyShip.getLife() > 1
+				&& checkCollision(bullet, enemyShip)) {
+			enemyShip.spendLife();
+			this.bulletsHit++;
+			recyclable.add(bullet);
+		}
+	}
+
+	private void specialShipCollision(Set<Bullet> recyclable, Bullet bullet){
+		if (this.enemyShipSpecial != null
+				&& !this.enemyShipSpecial.isDestroyed()
+				&& checkCollision(bullet, this.enemyShipSpecial)) {
+			this.score += this.enemyShipSpecial.getPointValue();
+			this.shipsDestroyed++;
+			this.bulletsHit++;
+			this.enemyShipSpecial.destroy();
+			this.enemyShipSpecialExplosionCooldown.reset();
+			recyclable.add(bullet);
+		}
 	}
 
 	/**
@@ -370,7 +383,7 @@ public class GameScreen extends Screen {
 			music.play();
 			logger.info("Start Music");
 		}
-		else if(!this.isMusic) {
+		else {
 			music.stop();
 			logger.info("End Music");
 		}
