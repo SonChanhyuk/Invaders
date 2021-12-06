@@ -2,8 +2,13 @@ package screen;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.SoundPlayer;
 
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class SettingScreen extends Screen {
 	
@@ -24,6 +29,14 @@ public class SettingScreen extends Screen {
 		super(width, height, fps);
 		
 		this.returnCode = 1;
+		this.ismusic = true;
+		try {
+			sound();
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
 		this.selectionCooldown.reset();
 		this.functionCode = 1;
@@ -51,6 +64,12 @@ public class SettingScreen extends Screen {
 			int userInput = inputManager.getKeyCode();
 			if (userInput == KeyEvent.VK_SPACE || this.functionCode2 == true) {
 				if (userInput == KeyEvent.VK_SPACE && this.functionCode == Exit) {
+					try {
+						sound();
+					} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					this.logger.info("false");
 					this.isRunning = false;
 				}
@@ -70,7 +89,7 @@ public class SettingScreen extends Screen {
 				
 		}
 	}
-	/** next selection(�븘�옯 諛⑺뼢)
+	/** next selection(占쎈툡占쎌삸 獄쎻뫚堉�)
 	 * */
 	private void nextFunction() {
 		if (this.functionCode == Exit)
@@ -79,7 +98,7 @@ public class SettingScreen extends Screen {
 			this.functionCode++;
 	}
 
-	/** previous selection(�쐵 諛⑺뼢)
+	/** previous selection(占쎌맮 獄쎻뫚堉�)
 	 * */
 	private void previousFunction() {
 		if (this.functionCode == RightKey)
@@ -117,5 +136,18 @@ public class SettingScreen extends Screen {
 				}
 			}
 		}
+	}
+	
+	private void sound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		if(this.ismusic) {
+			music = new SoundPlayer("menues.wav");
+			music.play();
+			logger.info("Start Music");
+		}
+		else if(!this.ismusic) {
+			music.stop();
+			logger.info("End Music");
+		}
+		this.ismusic = false;
 	}
 }
