@@ -57,25 +57,18 @@ public class EnemyShip extends Entity {
 		this.isBoss = false;
 
 		switch (this.spriteType) {
-		case EnemyShipA1:
-		case EnemyShipA2:
-			this.pointValue = A_TYPE_POINTS;
-			break;
-		case EnemyShipB1:
-		case EnemyShipB2:
-			this.pointValue = B_TYPE_POINTS;
-			this.life = 2;
-			setColor(Color.ORANGE);
-			break;
-		case EnemyShipC1:
-		case EnemyShipC2:
-			this.pointValue = C_TYPE_POINTS;
-			this.life = 3;
-			setColor(Color.RED);
-			break;
-		default:
-			this.pointValue = 0;
-			break;
+			case EnemyShipA1, EnemyShipA2 -> this.pointValue = A_TYPE_POINTS;
+			case EnemyShipB1, EnemyShipB2 -> {
+				this.pointValue = B_TYPE_POINTS;
+				this.life = 2;
+				setColor(Color.ORANGE);
+			}
+			case EnemyShipC1, EnemyShipC2 -> {
+				this.pointValue = C_TYPE_POINTS;
+				this.life = 3;
+				setColor(Color.RED);
+			}
+			default -> this.pointValue = 0;
 		}
 	}
 
@@ -140,32 +133,16 @@ public class EnemyShip extends Entity {
 			this.animationCooldown.reset();
 
 			switch (this.spriteType) {
-			case EnemyShipA1:
-				this.spriteType = SpriteType.EnemyShipA2;
-				break;
-			case EnemyShipA2:
-				this.spriteType = SpriteType.EnemyShipA1;
-				break;
-			case EnemyShipB1:
-				this.spriteType = SpriteType.EnemyShipB2;
-				break;
-			case EnemyShipB2:
-				this.spriteType = SpriteType.EnemyShipB1;
-				break;
-			case EnemyShipC1:
-				this.spriteType = SpriteType.EnemyShipC2;
-				break;
-			case EnemyShipC2:
-				this.spriteType = SpriteType.EnemyShipC1;
-				break;
-			case BossShip1:
-				this.spriteType = SpriteType.BossShip2;
-				break;
-			case BossShip2:
-				this.spriteType = SpriteType.BossShip1;
-				break;
-			default:
-				break;
+				case EnemyShipA1 -> this.spriteType = SpriteType.EnemyShipA2;
+				case EnemyShipA2 -> this.spriteType = SpriteType.EnemyShipA1;
+				case EnemyShipB1 -> this.spriteType = SpriteType.EnemyShipB2;
+				case EnemyShipB2 -> this.spriteType = SpriteType.EnemyShipB1;
+				case EnemyShipC1 -> this.spriteType = SpriteType.EnemyShipC2;
+				case EnemyShipC2 -> this.spriteType = SpriteType.EnemyShipC1;
+				case BossShip1 -> this.spriteType = SpriteType.BossShip2;
+				case BossShip2 -> this.spriteType = SpriteType.BossShip1;
+				default -> {
+				}
 			}
 		}
 	}
