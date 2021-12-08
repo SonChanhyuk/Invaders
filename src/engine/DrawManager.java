@@ -26,9 +26,9 @@ public final class DrawManager {
 	/** Current frame. */
 	private static Frame frame;
 	/** FileManager instance. */
-	private static FileManager fileManager;
+	private static final FileManager fileManager = Core.getFileManager();
 	/** Application logger. */
-	private static Logger logger;
+	private static final Logger logger = Core.getLogger();
 	/** Graphics context. */
 	private static Graphics graphics;
 	/** Buffer Graphics. */
@@ -48,7 +48,7 @@ public final class DrawManager {
 	private static Map<SpriteType, boolean[][]> spriteMap;
 
 	/** Sprite types. */
-	public static enum SpriteType {
+	public enum SpriteType {
 		/** Player ship. */
 		Ship,
 		/** Destroyed player ship. */
@@ -77,18 +77,16 @@ public final class DrawManager {
 		BossShip1,
 		/** Boss Ship - second form. */
 		BossShip2
-	};
+	}
 
 	/**
 	 * Private constructor.
 	 */
 	private DrawManager() {
-		fileManager = Core.getFileManager();
-		logger = Core.getLogger();
 		logger.info("Started loading resources.");
 
 		try {
-			spriteMap = new LinkedHashMap<SpriteType, boolean[][]>();
+			spriteMap = new LinkedHashMap<>();
 
 			spriteMap.put(SpriteType.Ship, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipDestroyed, new boolean[13][8]);

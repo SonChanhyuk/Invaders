@@ -97,7 +97,6 @@ public class GameScreen extends Screen {
 		try {
 			sound();
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -118,6 +117,7 @@ public class GameScreen extends Screen {
 	/**
 	 * Initializes basic screen properties, and adds necessary elements.
 	 */
+	@Override
 	public final void initialize() {
 		super.initialize();
 
@@ -144,6 +144,7 @@ public class GameScreen extends Screen {
 	 *
 	 * @return Next screen code.
 	 */
+	@Override
 	public final int run() {
 		super.run();
 
@@ -156,6 +157,7 @@ public class GameScreen extends Screen {
 	/**
 	 * Updates the elements on screen and checks for events.
 	 */
+	@Override
 	protected final void update() {
 		super.update();
 		pauseScreen.checkPause(inputDelay.checkFinished());

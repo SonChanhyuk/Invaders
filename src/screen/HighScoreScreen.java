@@ -40,7 +40,6 @@ public class HighScoreScreen extends Screen {
 		try {
 			sound();
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -56,6 +55,7 @@ public class HighScoreScreen extends Screen {
 	 * 
 	 * @return Next screen code.
 	 */
+	@Override
 	public final int run() {
 		super.run();
 
@@ -65,6 +65,7 @@ public class HighScoreScreen extends Screen {
 	/**
 	 * Updates the elements on screen and checks for events.
 	 */
+	@Override
 	protected final void update() {
 		super.update();
 
@@ -74,7 +75,6 @@ public class HighScoreScreen extends Screen {
 			try {
 				sound();
 			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			this.isRunning = false;
@@ -99,7 +99,7 @@ public class HighScoreScreen extends Screen {
 			music.play();
 			logger.info("Start Music");
 		}
-		else if(!this.isMusic) {
+		else {
 			music.stop();
 			logger.info("End Music");
 		}
