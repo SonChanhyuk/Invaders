@@ -36,25 +36,32 @@ public final class Core {
 
 	/** Difficulty settings for level 1. */
 	private static final GameSettings SETTINGS_LEVEL_1 =
-			new GameSettings(1, 50);
+			new GameSettings(5, 5, 50, 2500);
+			//new GameSettings(1, 50);
 	/** Difficulty settings for level 2. */
 	private static final GameSettings SETTINGS_LEVEL_2 =
-			new GameSettings(5, 5, 50, 2500);
+			new GameSettings(6, 5, 40, 1500);
+			//new GameSettings(5, 5, 50, 2500);
 	/** Difficulty settings for level 3. */
 	private static final GameSettings SETTINGS_LEVEL_3 =
-			new GameSettings(6, 5, 40, 1500);
+			new GameSettings(6, 6, 30, 1500);
+			//new GameSettings(6, 5, 40, 1500);
 	/** Difficulty settings for level 4. */
 	private static final GameSettings SETTINGS_LEVEL_4 =
-			new GameSettings(6, 6, 30, 1500);
+			new GameSettings(7, 6, 20, 1000);
+			//new GameSettings(6, 6, 30, 1500);
 	/** Difficulty settings for level 5. */
 	private static final GameSettings SETTINGS_LEVEL_5 =
-			new GameSettings(7, 6, 20, 1000);
+			new GameSettings(7, 7, 10, 1000);
+			//new GameSettings(7, 6, 20, 1000);
 	/** Difficulty settings for level 6. */
 	private static final GameSettings SETTINGS_LEVEL_6 =
-			new GameSettings(7, 7, 10, 1000);
+			new GameSettings(8, 7, 2, 500);
+			//new GameSettings(7, 7, 10, 1000);
 	/** Difficulty settings for level 7. */
 	private static final GameSettings SETTINGS_LEVEL_7 =
-			new GameSettings(8, 7, 2, 500);
+			new GameSettings(1, 50);
+			//new GameSettings(8, 7, 2, 500);
 
 	/** Frame to draw the screen on. */
 	private static Frame frame;
@@ -156,10 +163,11 @@ public final class Core {
 
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel() <= NUM_LEVELS);
-
-          currentScreen = new GameOverScreen(width, height, FPS);
-          returnCode = frame.setScreen(currentScreen);
-          LOGGER.info("Closing Game Over screen.");
+					
+					//Game Over
+					currentScreen = new GameOverScreen(width, height, FPS);
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing Game Over screen.");
           
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " score screen at " + FPS + " fps, with a score of "
@@ -186,23 +194,23 @@ public final class Core {
 					LOGGER.info("Closing high score screen.");
 					break;
           
-          case 5:
-          currentScreen = new ManualScreen(width, height, FPS);
-          LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-              + " manual screen at " + FPS + " fps.");
-          returnCode = frame.setScreen(currentScreen);
-          LOGGER.info("Closing manual screen");
-          break;
+				case 5:
+					currentScreen = new ManualScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " manual screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing manual screen");
+					break;
 				default:
 					break;
-			}
-
-		} while (returnCode != 0);
-		currentScreen.key_R = KeyEvent.VK_RIGHT;
-		currentScreen.key_L = KeyEvent.VK_LEFT;
-		fileHandler.flush();
-		fileHandler.close();
-		System.exit(0);
+				}
+	
+			} while (returnCode != 0);
+			currentScreen.key_R = KeyEvent.VK_RIGHT;
+			currentScreen.key_L = KeyEvent.VK_LEFT;
+			fileHandler.flush();
+			fileHandler.close();
+			System.exit(0);
 	}
 
 	/**

@@ -330,31 +330,31 @@ public final class DrawManager {
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, playString,
-				screen.getHeight() / 3 * 2);
+				screen.getHeight() / 3 * 2 - fontRegularMetrics.getHeight());
 		if (option == 3)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, highScoresString, screen.getHeight()
-				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 1);
 		if (option == 4)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, settingString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 4);
+				* 2 + fontRegularMetrics.getHeight() * 3);
 		if (option == 5)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, manualString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 6);
+				* 2 + fontRegularMetrics.getHeight() * 5);
 		if (option == 0)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 8);
+				* 2 + fontRegularMetrics.getHeight() * 7);
 	}
 
 	/**
@@ -683,9 +683,25 @@ public final class DrawManager {
 	Parmas : screen - screen to draw
 	 */
 	public void drawManual(final Screen screen){
-		String manualString = "manual string";
+		String GamePlay = "Game Play :";
+		String GamePlay1 = "The game method aims to control";
+		String GamePlay2 = "the launch pad at the bottom of";
+		String GamePlay3 = "the screen to drop the enemy at the top of";
+		String GamePlay4 = "the screen and annihilate it.";
 		backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, manualString, screen.getHeight()
+		drawCenteredRegularString(screen, GamePlay, screen.getHeight()
 				/ 4 + fontRegularMetrics.getHeight() * 2);
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, GamePlay1, screen.getHeight()
+				/ 4 + fontRegularMetrics.getHeight() * 3);
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, GamePlay2, screen.getHeight()
+				/ 4 + fontRegularMetrics.getHeight() * 4);
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, GamePlay3, screen.getHeight()
+				/ 4 + fontRegularMetrics.getHeight() * 5);
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, GamePlay4, screen.getHeight()
+				/ 4 + fontRegularMetrics.getHeight() * 6);
 	}
 }
