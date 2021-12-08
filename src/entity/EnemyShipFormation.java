@@ -94,6 +94,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private List<EnemyShip> shooters;
 	/** Number of not destroyed ships. */
 	private int shipCount;
+	/** Sprite. */
+	private SpriteType spriteType;
 
 	/** Directions the formation can move. */
 	private enum Direction {
@@ -127,8 +129,14 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		this.positionX = INIT_POS_X;
 		this.positionY = INIT_POS_Y;
 		this.shooters = new ArrayList<EnemyShip>();
-		SpriteType spriteType;
+		if (nShipsWide != 1){
+			generalStage();
+		} else {
+			bossStage();
+		}
+	}
 
+	public void generalStage(){
 		this.logger.info("Initializing " + nShipsWide + "x" + nShipsHigh
 				+ " ship formation in (" + positionX + "," + positionY + ")");
 
@@ -146,12 +154,38 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				else
 					spriteType = SpriteType.EnemyShipA1;
 
-				column.add(new EnemyShip((SEPARATION_DISTANCE 
+				column.add(new EnemyShip((SEPARATION_DISTANCE
 						* this.enemyShips.indexOf(column))
-								+ positionX, (SEPARATION_DISTANCE * i)
-								+ positionY, spriteType));
+						+ positionX, (SEPARATION_DISTANCE * i)
+						+ positionY, spriteType));
 				this.shipCount++;
 			}
+		}
+
+		this.shipWidth = this.enemyShips.get(0).get(0).getWidth();
+		this.shipHeight = this.enemyShips.get(0).get(0).getHeight();
+
+		this.width = (this.nShipsWide - 1) * SEPARATION_DISTANCE
+				+ this.shipWidth;
+		this.height = (this.nShipsHigh - 1) * SEPARATION_DISTANCE
+				+ this.shipHeight;
+
+		for (List<EnemyShip> column : this.enemyShips)
+			this.shooters.add(column.get(column.size() - 1));
+	}
+
+	public void bossStage(){
+		this.logger.info("Initializing Boss stage"
+				+ " ship formation in (" + positionX + "," + positionY + ")");
+
+		// Each sub-list is a column on the formation.
+		this.enemyShips.add(new ArrayList<EnemyShip>());
+
+		for (List<EnemyShip> column : this.enemyShips) {
+			spriteType = SpriteType.BossShip1;
+
+			column.add(new EnemyShip(10));
+			this.shipCount++;
 		}
 
 		this.shipWidth = this.enemyShips.get(0).get(0).getWidth();
@@ -337,8 +371,14 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
-			bullets.add(BulletPool.getBullet(shooter.getPositionX()
-					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+			if (shooter.width <= 24){
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+			}
+			else {
+				bullets.add(BulletPool.getBullet((int)(Math.random() * screen.getWidth()),
+						shooter.getPositionY() + shooter.height, BULLET_SPEED));
+			}
 		}
 	}
 

@@ -16,6 +16,8 @@ public class GameState {
 	private int livesRemaining;
 	/** Bullets shot until now. */
 	private int bulletsShot;
+	/**Bullets hit count for player accuracy **/
+	private int bulletsHit;
 	/** Ships destroyed until now. */
 	private int shipsDestroyed;
 
@@ -34,12 +36,13 @@ public class GameState {
 	 *            Ships destroyed until now.
 	 */
 	public GameState(final int level, final int score,
-			final int livesRemaining, final int bulletsShot,
+			final int livesRemaining, final int bulletsShot, final int bulletsHit,
 			final int shipsDestroyed) {
 		this.level = level;
 		this.score = score;
 		this.livesRemaining = livesRemaining;
 		this.bulletsShot = bulletsShot;
+		this.bulletsHit = bulletsHit;
 		this.shipsDestroyed = shipsDestroyed;
 	}
 
@@ -70,6 +73,9 @@ public class GameState {
 	public final int getBulletsShot() {
 		return bulletsShot;
 	}
+
+	/** Returns bullestHit**/
+	public final int getBulletsHit() { return bulletsHit; }
 
 	/**
 	 * @return the shipsDestroyed

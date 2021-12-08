@@ -15,6 +15,8 @@ local.properties
 .classpath
 .settings/
 .loadpath
+out/
+.idea
 
 # External tool builders
 .externalToolBuilders/
@@ -175,3 +177,4 @@ log*
 out/
 .idea/
 Invaders.iml
+

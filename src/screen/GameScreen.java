@@ -1,19 +1,15 @@
 package screen;
 
+
+import engine.*;
+import entity.*;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-
-import engine.Cooldown;
-import engine.Core;
-import engine.GameSettings;
-import engine.GameState;
-import entity.Bullet;
-import entity.BulletPool;
-import entity.EnemyShip;
-import entity.EnemyShipFormation;
-import entity.Entity;
-import entity.Ship;
 
 /**
  * Implements the game screen, where the action happens.
@@ -62,6 +58,8 @@ public class GameScreen extends Screen {
 	private int lives;
 	/** Total bullets shot by the player. */
 	private int bulletsShot;
+	/**bullets player hit the enemy**/
+	private int bulletsHit;
 	/** Total ships destroyed by the player. */
 	private int shipsDestroyed;
 	/** Moment the game starts. */
@@ -93,6 +91,18 @@ public class GameScreen extends Screen {
 					  final GameSettings gameSettings, final boolean bonusLife,
 					  final int width, final int height, final int fps) {
 		super(width, height, fps);
+
+		this.returnCode = 1;
+		this.ismusic = true;
+
+		try {
+			sound();
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+
 
 		this.gameSettings = gameSettings;
 		this.bonusLife = bonusLife;
@@ -156,10 +166,8 @@ public class GameScreen extends Screen {
 		else if (this.inputDelay.checkFinished() && !this.levelFinished) {
 
 			if (!this.ship.isDestroyed()) {
-				boolean moveRight = inputManager.isKeyDown(KeyEvent.VK_RIGHT)
-						|| inputManager.isKeyDown(KeyEvent.VK_D);
-				boolean moveLeft = inputManager.isKeyDown(KeyEvent.VK_LEFT)
-						|| inputManager.isKeyDown(KeyEvent.VK_A);
+				boolean moveRight = inputManager.isKeyDown(key_R);
+				boolean moveLeft = inputManager.isKeyDown(key_L);
 
 				boolean isRightBorder = this.ship.getPositionX()
 						+ this.ship.getWidth() + this.ship.getSpeed() > this.width - 1;
@@ -172,7 +180,7 @@ public class GameScreen extends Screen {
 				if (moveLeft && !isLeftBorder) {
 					this.ship.moveLeft();
 				}
-				if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
+				if (inputManager.isKeyDown(key_Shoot))
 					if (this.ship.shoot(this.bullets))
 						this.bulletsShot++;
 			}
@@ -213,9 +221,15 @@ public class GameScreen extends Screen {
 			this.screenFinishedCooldown.reset();
 		}
 
-		if (this.levelFinished && this.screenFinishedCooldown.checkFinished())
+		if (this.levelFinished && this.screenFinishedCooldown.checkFinished()) {
+			try {
+				sound();
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			this.isRunning = false;
-
+		}
 	}
 
 	/**
@@ -291,11 +305,22 @@ public class GameScreen extends Screen {
 				}
 			} else {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
-					if (!enemyShip.isDestroyed()
+					if (enemyShip.getLife() <= 1
 							&& checkCollision(bullet, enemyShip)) {
+						// boss log
+						if (enemyShip.getIsBoss()) {
+							this.logger.info("Boss destroyed!");
+						}
 						this.score += enemyShip.getPointValue();
 						this.shipsDestroyed++;
+						this.bulletsHit++;
 						this.enemyShipFormation.destroy(enemyShip);
+						recyclable.add(bullet);
+					}
+					else if (enemyShip.getLife() > 1
+							&& checkCollision(bullet, enemyShip)) {
+						enemyShip.spendLife();
+						this.bulletsHit++;
 						recyclable.add(bullet);
 					}
 				if (this.enemyShipSpecial != null
@@ -303,6 +328,7 @@ public class GameScreen extends Screen {
 						&& checkCollision(bullet, this.enemyShipSpecial)) {
 					this.score += this.enemyShipSpecial.getPointValue();
 					this.shipsDestroyed++;
+					this.bulletsHit++;
 					this.enemyShipSpecial.destroy();
 					this.enemyShipSpecialExplosionCooldown.reset();
 					recyclable.add(bullet);
@@ -344,6 +370,18 @@ public class GameScreen extends Screen {
 	 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.lives,
-				this.bulletsShot, this.shipsDestroyed);
+				this.bulletsShot, this.bulletsHit, this.shipsDestroyed);
+	}
+	private void sound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		if(this.ismusic) {
+			music = new SoundPlayer("inGame.wav");
+			music.play();
+			logger.info("Start Music");
+		}
+		else if(!this.ismusic) {
+			music.stop();
+			logger.info("End Music");
+		}
+		this.ismusic = false;
 	}
 }
