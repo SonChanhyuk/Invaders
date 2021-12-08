@@ -171,8 +171,10 @@ pip-log.txt
 log*
 *.ttf
 .checkstyle
+# Ignore Gradle project-specific cache directory
+.gradle
 
 out/
+.idea/
 Invaders.iml
-.idea
 
